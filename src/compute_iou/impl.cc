@@ -1,6 +1,7 @@
 #include "impls.h"
 #include <algorithm>
 
+
 float compute_iou(const cv::Rect& a, const cv::Rect& b) {
     /**
      * 要求：
@@ -17,5 +18,14 @@ float compute_iou(const cv::Rect& a, const cv::Rect& b) {
      * 运行测试点，显示通过就行，不通过会告诉你哪一组矩形错了。
     */
     // IMPLEMENT YOUR CODE HERE
-    return 0.f;
+    // cv::Rect jiao = a&b;
+    // cv::Rect bing = a|b;
+    // if(jiao.area() == 0) std::cout<<"Nan";
+    // std::cout<<jiao.area()<<" "<<bing.area()<<" ";
+    cv::Point2f j_tl(std::max(a.tl().x , b.tl().x) , std::max(a.tl().y , b.tl().y));
+    cv::Point2f j_br(std::min(a.br().x , b.br().x) , std::min(a.br().y , b.br().y));
+    float j_area = (j_br.x - j_tl.x) * (j_br.y - j_tl.y);
+    float b_area = a.area() + b.area() - j_area;
+    return (float)j_area/b_area;
+
 }

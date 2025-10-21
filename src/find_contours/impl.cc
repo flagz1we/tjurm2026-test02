@@ -18,6 +18,24 @@ std::vector<std::vector<cv::Point>> find_contours(const cv::Mat& input) {
      */
     
     std::vector<std::vector<cv::Point>> res;
+    std::vector<std::vector<cv::Point>> all;
+    std::vector<cv::Vec4i> hierarchy;
+    cv::Mat gray;
+    cv::cvtColor(input, gray, cv::COLOR_BGR2GRAY);
+    cv::threshold(gray,gray,50,255,cv::THRESH_BINARY);
+    cv::findContours(gray , all , hierarchy , cv::RETR_TREE ,cv::CHAIN_APPROX_SIMPLE);
+    // std::cout<<"down1";
+    int cnt = 0;
+    for(int i  = 0 ; i < all.size() ; i ++)
+    {
+        if(hierarchy[i][2] == -1 )
+        {
+            res.push_back(all[i]);
+        }
+    }
+    // std::cout<<"down2";
+    // cv::imshow("zjdhanshu",gray);
+    // cv::waitKey(0);
     // IMPLEMENT YOUR CODE HERE
     return res;
 }

@@ -43,9 +43,18 @@ std::vector<cv::Mat> erode(const cv::Mat& src_erode, const cv::Mat& src_dilate) 
      *     2. dilate 之后的图像中，图中的小脚被消除了(类似答案中的样子)
      *     以上两个检查点需要自己检查，满足条件 则输入 p 通过, 否则输入 f 表示不通过
      */
+    std::cout<<5;
     cv::Mat dst_erode, dst_dilate;
-
-    // TODO: 在这里实现你的代码
-
+    // std::cout<<0;
+    cv::cvtColor(src_erode, dst_erode, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(src_dilate, dst_dilate, cv::COLOR_BGR2GRAY);
+    // std::cout<<1;
+    cv::threshold(dst_erode,dst_erode,50,255,cv::THRESH_BINARY);
+     cv::threshold(dst_dilate,dst_dilate,50,255,cv::THRESH_BINARY);
+    // std::cout<<2;
+    // // TODO: 在这里实现你的代码
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT,cv::Size(3,3));
+    cv::erode(dst_erode,dst_erode,kernel,cv::Point(-1,-1),3);
+    cv::dilate(src_dilate,dst_dilate,kernel,cv::Point(-1,-1),3);
     return {dst_erode, dst_dilate};
 }

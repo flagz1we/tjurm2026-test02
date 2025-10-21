@@ -16,7 +16,7 @@ std::vector<cv::Mat> split(const cv::Mat& rgb_image) {
      *  1. 此任务会自动判断你的代码是否正确，通过测试 (打印出 pass ) 即可
      */
     std::vector<cv::Mat> result;
-
+    cv::split(rgb_image , result);
     // TODO: 实现代码
 
     return result;

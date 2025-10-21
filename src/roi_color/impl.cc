@@ -29,6 +29,39 @@ std::unordered_map<int, cv::Rect> roi_color(const cv::Mat& input) {
      *      4. 将颜色 和 矩形位置 存入 map 中
      */
     std::unordered_map<int, cv::Rect> res;
+    std::vector<std::vector<cv::Point>> all;
+    std::vector<cv::Vec4i> hierarchy;
+    cv::Mat gray;
+    cv::cvtColor(input , gray , cv::COLOR_BGR2GRAY);
+    cv::threshold(gray , gray , 250 , 255 , cv::THRESH_BINARY_INV);
+    cv::findContours(gray , all , hierarchy , cv::RETR_CCOMP ,cv::CHAIN_APPROX_SIMPLE);
+    for(int i = 0; i < all.size() ; i++)
+    {
+        if(hierarchy[i][2] == -1)
+        {
+            cv::Rect rect = cv::boundingRect(all[i]);
+            cv::Mat roi = input(rect);
+            cv::Scalar color = cv::mean(roi);
+            if( color[0] >= 200)
+            {
+                res[0] = rect;
+                cv::imshow("B",roi);
+            }
+            else if(color[1] >= 150)
+            {
+                res[1] = rect;
+                cv::imshow("G",roi);
+            }
+            else
+            {
+                res[2] = rect;
+                cv::imshow("R",roi);
+            }
+
+        }
+    }
+    cv::imshow("pic",gray);
+    cv::waitKey(0);
     // IMPLEMENT YOUR CODE HERE
 
     return res;
