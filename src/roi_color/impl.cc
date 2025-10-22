@@ -45,23 +45,23 @@ std::unordered_map<int, cv::Rect> roi_color(const cv::Mat& input) {
             if( color[0] >= 200)
             {
                 res[0] = rect;
-                cv::imshow("B",roi);
+                //cv::imshow("B",roi);
             }
             else if(color[1] >= 150)
             {
                 res[1] = rect;
-                cv::imshow("G",roi);
+                //cv::imshow("G",roi);
             }
             else
             {
                 res[2] = rect;
-                cv::imshow("R",roi);
+                //cv::imshow("R",roi);
             }
 
         }
     }
-    cv::imshow("pic",gray);
-    cv::waitKey(0);
+    //cv::imshow("pic",gray);
+    //cv::waitKey(0);
     // IMPLEMENT YOUR CODE HERE
 
     return res;
