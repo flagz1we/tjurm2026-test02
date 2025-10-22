@@ -22,7 +22,7 @@ cv::Mat my_resize(const cv::Mat& input, float scale) {
      * 运行测试点，你的结果跟答案长的差不多就行。
      */
     //std::cout<<"2"<<" ";
-     int new_rows = input.rows * scale, new_cols = input.cols * scale;
+    int new_rows = input.rows * scale, new_cols = input.cols * scale;
     cv::Mat mat(new_rows, new_cols,input.type());
     //std::cout<<new_rows<<" "<<new_cols<<std::endl;
     int tim = 0;
